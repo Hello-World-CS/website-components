@@ -1,0 +1,563 @@
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Poppins:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  #cv-container {
+    position: relative;
+    padding: 0;
+    margin: 0 auto;
+    background: black;
+    width: 100%;
+    height: 500px;
+    text-align: center;
+  }
+
+  #coverflow {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    perspective: 600px;
+  }
+
+  #coverflow * {
+    box-sizing: border-box;
+  }
+
+  #coverflow #modal {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 36px rgba(0, 0, 0, 0.302);
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    left: 50%;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 300ms ease-out;
+    width: 90%;
+    z-index: 50;
+    visibility: hidden;
+  }
+
+  #coverflow #modal .header {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    width: 100%;
+    height: 48px;
+    background: #f6f6f6;
+  }
+  #coverflow #modal .header img {
+    cursor: pointer;
+  }
+
+  #coverflow #modal .content {
+    overflow: hidden;
+    width: 100%;
+    flex-grow: 1;
+    align-items: center;
+    padding: 24px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  #coverflow #modal .nav {
+    cursor: pointer;
+    margin: 0 28px;
+  }
+  #coverflow #modal .nav.left {
+    transform: rotate(180deg);
+  }
+  #coverflow #modal .info {
+    overflow: auto;
+    text-align: left;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 26px;
+    height: 100%;
+    flex-shrink: 0;
+    color: #4d4d4d;
+    width: 30%;
+  }
+  #coverflow #modal .info .project-name {
+    font-size: 18px;
+  }
+
+  #coverflow #modal .info .description {
+    margin-top: 16px;
+  }
+  #coverflow #modal .info .standards {
+    padding-inline-start: 16px;
+    margin-top: 16px;
+  }
+  #coverflow #modal .media {
+    height: 100%;
+    padding-left: 16px;
+    flex-grow: 1;
+    width: auto;
+  }
+  #coverflow #modal .media video {
+    width: 100%;
+    height: 100%;
+  }
+
+  #coverflow div.card {
+    user-select: none;
+    position: absolute;
+    top: 36%;
+    left: 50%;
+    cursor: pointer;
+    width: 264px;
+    height: 340px;
+    margin-left: -132px;
+    margin-top: -90px;
+    background-color: white;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-color: #242424;
+    border-radius: 6px;
+    color: #f6f6f6;
+    text-align: left;
+    padding: 208px 16px 16px 16px;
+    transform-style: preserve-3d;
+    transition: all 300ms ease-out;
+  }
+
+  #coverflow div.card .title {
+    height: 72px;
+    margin-bottom: 16px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+  }
+
+  #coverflow div.card .tags {
+    display: flex;
+  }
+
+  #coverflow div.card .tag {
+    color: rgba(246, 246, 246, 0.87);
+    font-family: IBM Plex Mono;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(246, 246, 246, 0.12);
+    border-radius: 4px;
+    padding: 0 12px;
+    margin-right: 8px;
+    height: 32px;
+  }
+</style>
+<div id="cv-container">
+  <div id="coverflow">
+    <div id="modal">
+      <div class="header">
+        <div class="header-title"></div>
+        <img
+          src="https://uploads-ssl.webflow.com/6047d44fad4ed2d97b3a7a18/60873e6e17774878530065ec_close.png"
+          alt="close"
+        />
+      </div>
+      <div class="content">
+        <img
+          class="nav left"
+          src="https://uploads-ssl.webflow.com/6047d44fad4ed2d97b3a7a18/60873e6ef7867c3c1fc28e76_arrow.png"
+          alt="previous"
+        />
+        <div class="info">
+          <div class="project-name"></div>
+          <div class="description"></div>
+          <ul class="standards"></ul>
+        </div>
+        <div class="media">
+          <video autoplay loop muted />
+        </div>
+        <img
+          class="nav right"
+          src="https://uploads-ssl.webflow.com/6047d44fad4ed2d97b3a7a18/60873e6ef7867c3c1fc28e76_arrow.png"
+          alt="previous"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const data = [
+      {
+        image:
+          "https://uploads-ssl.webflow.com/6047d44fad4ed2d97b3a7a18/605162f72f96405a644c3f81_VR.gif",
+        title: "Virtual Reality",
+        description:
+          "Students belong to a team of highly trained astronauts and are leading the first human-led mission to land on another moon or planet. Teams determine a destination, mission goals, and create a multi-scene VR simulation to model their journey.",
+        tags: ["Grades 3-8", "Javascript"],
+        gradeBand: "Middle School",
+        projectName: "Solar System Landing",
+        type: "Team Challenge",
+        video:
+          "https://res.cloudinary.com/dnx5si27b/video/upload/v1619467478/coverflow/website-solar-system-landing_ru4ebo.mp4",
+        standards: [
+          "CSTA: 2-AP-10",
+          "CSTA: 2-AP-11",
+          "CSTA: 2-AP-18",
+          "Common Core ELA: CCSS.ELA-LITERACY.W.8",
+        ],
+      },
+      {
+        image:
+          "https://uploads-ssl.webflow.com/6047d44fad4ed2d97b3a7a18/605162f7681c80b383a4ed7b_Minecraft.gif",
+        title: "Hacking Minecraft",
+        description:
+          "Students work in teams to research and select an ancient civilization. Teams then build an interactive model of the civilization that demonstrates the economic, social, and architectural features that influenced the lives of its people.",
+        tags: ["Grades 4-8", "Java"],
+        gradeBand: "Elementary School",
+        projectName: "Ancient Civilization Builder",
+        type: "Team Challenge",
+        video:
+          "https://res.cloudinary.com/dnx5si27b/video/upload/v1619460876/coverflow/Cuteness_Meter_v1_jxaznj.mp4",
+        standards: [
+          "CSTA: 2-AP-11",
+          "CSTA: 2-AP-12",
+          "CSTA: 2-AP-15",
+          "Common Core: CCSS.ELA-LITERACY.RST.6-8.1",
+        ],
+      },
+      {
+        image:
+          "https://uploads-ssl.webflow.com/6047d44fad4ed2d97b3a7a18/605162f60e5dc1824b0268e9_DSAI.gif",
+        title: "Data Science & Artificial Intelligence",
+        description:
+          "Students build knowledge and perspective around bias in recommender systems like the ones used by Facebook, Netflix, and YouTube and apply learnings to their own program that guides users to a movie, book, or song based on their preferences.",
+        tags: ["Grades 6-12", "Python"],
+        gradeBand: "High School",
+        projectName: "Media Recommender",
+        type: "Case Study",
+        video:
+          "https://res.cloudinary.com/dnx5si27b/video/upload/v1619531436/coverflow/Movie_Generator_v3_yag3f0.mp4",
+        standards: [
+          "CSTA: 3B-AB-10",
+          "CSTA: 3B-AB-14",
+          "CSTA: 3B-IC-25",
+          "Common Core: CCSS.ELA-LITERACY.RST.11-12.7",
+        ],
+      },
+      {
+        image:
+          "https://uploads-ssl.webflow.com/6047d44fad4ed2d97b3a7a18/605162f78abeac4eb30200a5_iOS%20App%20Dev.gif",
+        title: "iOS Mobile App Development",
+        description:
+          "Students build an interactive carnival game app using Xcode’s SpriteKit framework. Players use a touchscreen to pop balloons and complete to have the highest game score. This game may also be developed in augmented reality using ARKit.",
+        tags: ["Grades 6-12", "Swift"],
+        gradeBand: "Middle School",
+        projectName: "Balloon Darts",
+        type: "Case Study",
+        video:
+          "https://res.cloudinary.com/dnx5si27b/video/upload/v1619531440/coverflow/BalloonPopper-2_mupcuj.mp4",
+        standards: [
+          "CSTA: 2-AP-12",
+          "CSTA: 2-AP-13",
+          "CSTA: 2-AP-14",
+          "Common Core: CCSS.MATH.CONTENT.8.G.A.1",
+        ],
+      },
+      {
+        image:
+          "https://uploads-ssl.webflow.com/6047d44fad4ed2d97b3a7a18/605162f7b9ccb93070492b12_Java.gif",
+        title: "Java Fundamentals",
+        description:
+          "Students program a game that tests the user's ability to create compound words from a list. The user creates as many compound words as possible from a list of at least 20 words. Users who create enough words become word builder champions.",
+        tags: ["Grades 9-12", "Java"],
+        gradeBand: "High School",
+        projectName: "Word Builder Challenge",
+        type: "",
+        video:
+          "https://res.cloudinary.com/dnx5si27b/video/upload/v1619531468/coverflow/Build_a_Word_v1_bphziq.mp4",
+        standards: [
+          "AP CS A: MOD-1.D.1",
+          "AP CS A: CON-1.B.1",
+          "AP CS A: CON-2.A.2",
+          "AP CS A: VAR-1.E.3",
+        ],
+      },
+      {
+        image:
+          "https://uploads-ssl.webflow.com/6047d44fad4ed2d97b3a7a18/605162f80e5dc1cacf0268ea_AP%20CS%20A-min.gif",
+        title: "AP Computer Science A",
+        description:
+          "Students create a virtual game designed to simulate a real-life chess match between two players. Each player chooses their side and the program’s algorithms set players up to adhere to the many complex and interconnected rules of chess.",
+        tags: ["Grades 9-12", "Java"],
+        gradeBand: "High School",
+        projectName: "Chess Game",
+        type: "",
+        video:
+          "https://res.cloudinary.com/dnx5si27b/video/upload/v1619531484/coverflow/Chess_Game_jhkugu.mp4",
+        standards: [
+          "AP CS A: MOD-1.A.1",
+          "AP CS A: VAR-2.A.1",
+          "AP CS A: VAR-3.A.1",
+          "AP CS A: CON-1.B.1",
+        ],
+      },
+      {
+        image:
+          "https://uploads-ssl.webflow.com/6047d44fad4ed2d97b3a7a18/605162f6aee81b43398345ce_Cybersecurity.gif",
+        title: "Cybersecurity",
+        description:
+          "Students build knowledge around password insecurity and theft and test their understanding by hacking a user’s password. As the program runs, the user sees in real time the number of guesses being tested until the password has been cracked.",
+        tags: ["Grades 6-12", "No Demo"],
+        gradeBand: "Middle School",
+        projectName: "Password Hacker",
+        type: "",
+        video:
+          "https://res.cloudinary.com/dnx5si27b/video/upload/v1619531771/coverflow/Password_Hacker_lyafpe.mp4",
+        standards: [
+          "CSTA: 3A-AP-13",
+          "CSTA: 3A-AP-16",
+          "CSTA: 3A-NI-05",
+          "Common Core: CCSS.MATH.CONTENT.HSA.REI.A.1",
+        ],
+      },
+      {
+        image:
+          "https://uploads-ssl.webflow.com/6047d44fad4ed2d97b3a7a18/605162f8fa2a111e11dae7c4_AP%20CS%20Principles-min.gif",
+        title: "AP Computer Science Principles",
+        description:
+          "Students take on the role of Cyber Crime Special Agents to solve criminal cases of stolen identity, trespassing, and malware attacks. A series of clues and background information are uncovered to assist with each thrilling investigation.",
+        tags: ["Grades 9-12", "No Demo"],
+        gradeBand: "High School",
+        projectName: "Digital Detective",
+        type: "",
+        video:
+          "https://res.cloudinary.com/dnx5si27b/video/upload/v1619531594/coverflow/digital-detective-website-v3_l8l52j.mp4",
+        standards: [
+          "AP CS P: IOC-2.A.1-14",
+          "AP CS P: IOC-2.B.1-10",
+          "AP CS P: IOC-2.C.1-4",
+        ],
+      },
+      {
+        image:
+          "https://uploads-ssl.webflow.com/6047d44fad4ed2d97b3a7a18/605162f74818653bf84bfb18_Web%20Dev.gif",
+        title: "Web Development",
+        description:
+          "Students stretch their website design abilities by programming an interactive image carousel that stores a database of picture ratings selected by users. Students develop their own custom theme and rating system based on personal interests.",
+        tags: ["Grades 3-8", "No Demo"],
+        gradeBand: "Elementary School",
+        projectName: "Cute-O-Meter",
+        type: "",
+        video:
+          "https://res.cloudinary.com/dnx5si27b/video/upload/v1619460876/coverflow/Cuteness_Meter_v1_jxaznj.mp4",
+        standards: [
+          "CSTA: 1B-AP-09",
+          "CSTA: 1B-AP-10",
+          "CSTA: 1B-AP-15",
+          "Common Core: CCSS.MATH.CONTENT.6.RPA.3",
+        ],
+      },
+    ];
+    let index = 0,
+      coverflow = null,
+      featuredTitle = null,
+      featuredTags = null,
+      modal = null,
+      modalInfo = null,
+      modalTitle = null,
+      modalProjectName = null,
+      modalDescription = null,
+      modalStandards = null,
+      modalVideo = null,
+      modalPrev = null,
+      modalNext = null,
+      cards = [],
+      isModalShown = false;
+    const OFFSET = 106;
+    const SPACE = 120;
+    const ROTATION = 70;
+    const BASE_ZINDEX = 10;
+    const MAX_ZINDEX = 42;
+
+    function get(selector) {
+      return document.querySelector(selector);
+    }
+
+    function render() {
+      for (var i = 0; i < cards.length; i++) {
+        if (i < index) {
+          cards[i].style.transform =
+            "translateX( -" +
+            (OFFSET + SPACE * (index - i)) +
+            "px ) translateZ(-100px) rotateY( " +
+            ROTATION +
+            "deg )";
+          cards[i].style.zIndex = BASE_ZINDEX + i;
+        }
+
+        if (i === index) {
+          cards[i].style.transform = "translateZ(0px) rotateY(0deg) ";
+          cards[i].style.zIndex = MAX_ZINDEX;
+        }
+
+        if (i > index) {
+          cards[i].style.transform =
+            "translateX( " +
+            (OFFSET + SPACE * (i - index)) +
+            "px ) translateZ(-100px) rotateY( -" +
+            ROTATION +
+            "deg )";
+          cards[i].style.zIndex = BASE_ZINDEX + (cards.length - i);
+        }
+      }
+      if (index === 0) {
+        modalPrev.style.visibility = "hidden";
+        return;
+      }
+
+      if (index >= cards.length - 1) {
+        modalNext.style.visibility = "hidden";
+        return;
+      }
+      modalPrev.style.visibility = "visible";
+      modalNext.style.visibility = "visible";
+    }
+
+    function prevClick() {
+      if (index) {
+        updateModal(--index);
+        render();
+      }
+    }
+
+    function nextClick() {
+      if (cards.length > index + 1) {
+        updateModal(++index);
+        render();
+      }
+    }
+
+    function showModal(i) {
+      modal.style.visibility = "visible";
+      modal.style.opacity = 1;
+    }
+
+    function hideModal() {
+      modal.style.visibility = "hidden";
+      modal.style.opacity = 0;
+    }
+
+    function fadeIn(element) {
+      var op = 0.1;
+      element.style.opacity = op;
+      var timer = setInterval(function () {
+        if (op >= 1) {
+          clearInterval(timer);
+        }
+        element.style.opacity = op;
+        element.style.filter = "alpha(opacity=" + op * 100 + ")";
+        op += op * 0.1;
+      }, 10);
+    }
+
+    function updateModal(i) {
+      fadeIn(modalInfo);
+      const {
+        title,
+        gradeBand,
+        projectName,
+        description,
+        standards,
+        video,
+      } = data[i];
+      modalTitle.innerHTML = `${title} - ${gradeBand} Example Project`;
+      modalProjectName.innerHTML = projectName;
+      modalDescription.innerHTML = description;
+      modalStandards.innerHTML = "";
+      for (var j = 0; j < standards.length; j++) {
+        const li = document.createElement("li");
+        li.textContent = standards[j];
+        modalStandards.appendChild(li);
+      }
+      modalVideo.src = video;
+    }
+
+    function handleClickCard(i) {
+      return function () {
+        updateModal(i);
+        if (i === index) {
+          showModal(i);
+          return;
+        }
+        index = i;
+        render();
+      };
+    }
+
+    function init() {
+      coverflow = get("#coverflow");
+      for (var i = 0; i < data.length; i++) {
+        const card = document.createElement("div");
+
+        card.style.backgroundImage = "url(" + data[i].image + ")";
+        card.setAttribute("data-index", i);
+        card.classList.add("card");
+
+        const cardTitle = document.createElement("div");
+        cardTitle.classList.add("title");
+        cardTitle.textContent = data[i].title;
+
+        const cardTags = document.createElement("div");
+
+        for (var j = 0; j < 2; j++) {
+          const tag = document.createElement("div");
+          tag.classList.add("tag");
+          tag.textContent = data[i].tags[j];
+          cardTags.appendChild(tag);
+        }
+
+        cardTags.classList.add("tags");
+
+        card.appendChild(cardTitle);
+        card.appendChild(cardTags);
+        card.onclick = handleClickCard(i);
+        coverflow.appendChild(card);
+      }
+      modal = get("#modal");
+      modalInfo = get("#modal .info");
+      modalTitle = get("#modal .header-title");
+      modalProjectName = get("#modal .project-name");
+      modalDescription = get("#modal .description");
+      modalStandards = get("#modal .standards");
+      modalVideo = get("#modal .media video");
+      featuredTitle = get("#coverflow .featured .title");
+      featuredTags = get("#coverflow .featured .tags");
+      modalClose = get("#modal .header img");
+      modalPrev = get("#modal .nav.left");
+      modalNext = get("#modal .nav.right");
+      modalPrev.onclick = prevClick;
+      modalNext.onclick = nextClick;
+      modalClose.onclick = hideModal;
+      cards = Array.prototype.slice.call(document.querySelectorAll("div.card"));
+      index = Math.floor(cards.length / 2);
+      render();
+    }
+
+    init();
+  })();
+</script>
