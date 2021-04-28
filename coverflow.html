@@ -1,187 +1,241 @@
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Poppins:wght@400;500;600&display=swap"
-  rel="stylesheet"
-/>
-<style>
-  #cv-container {
-    background: transparent;
-    height: 500px;
-    margin: 0 auto;
-    padding: 0;
-    position: relative;
-    text-align: center;
-    width: 100%;
-  }
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    #cv-container {
+      background: transparent;
+      height: auto;
+      margin: 0 auto;
+      padding: 0;
+      position: relative;
+      text-align: center;
+      width: 100%;
+    }
 
-  #coverflow {
-    background-color: transparent;
-    height: 100%;
-    perspective: 600px;
-    width: 100%;
-  }
+    #coverflow {
+      background-color: transparent;
+      height: auto;
+      min-height: 500px;
+      perspective: 600px;
+      width: 100%;
+    }
 
-  #coverflow * {
-    box-sizing: border-box;
-  }
+    #coverflow * {
+      box-sizing: border-box;
+    }
 
-  #coverflow #modal {
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: rgb(0 0 0 / 50%) 0px 0px 36px;
-    display: flex;
-    flex-direction: column;
-    height: 90%;
-    left: 50%;
-    max-width: 1082px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 300ms ease-out;
-    visibility: hidden;
-    width: 90%;
-    z-index: 50;
-  }
+    #coverflow #modal {
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: rgb(0 0 0 / 50%) 0px 0px 36px;
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      left: 50%;
+      max-width: 1082px;
+      opacity: 0;
+      position: absolute;
+      top: 29px;
+      transform: translateX(-50%);
+      transition: all 300ms ease-out;
+      visibility: hidden;
+      width: 90%;
+      z-index: 50;
+    }
 
-  #coverflow #modal .header {
-    align-items: center;
-    background: #f6f6f6;
-    color: #4d4d4d;
-    display: flex;
-    flex-shrink: 0;
-    font-family: Poppins;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    height: 48px;
-    justify-content: space-between;
-    padding: 0 16px;
-    width: 100%;
-  }
+    #coverflow #modal .header {
+      align-items: center;
+      background: #f6f6f6;
+      border-radius: 10px;
+      color: #4d4d4d;
+      display: flex;
+      flex-shrink: 0;
+      font-family: Poppins;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 600;
+      height: 48px;
+      justify-content: space-between;
+      padding: 0 16px;
+      width: 100%;
+    }
 
-  #coverflow #modal .header img {
-    cursor: pointer;
-  }
+    #coverflow #modal .header img {
+      cursor: pointer;
+    }
 
-  #coverflow #modal .content {
-    align-items: center;
-    display: flex;
-    flex-grow: 1;
-    justify-content: space-between;
-    overflow: hidden;
-    padding: 24px 0;
-    width: 100%;
-  }
+    #coverflow #modal .content {
+      color: #4d4d4d;
+      display: grid;
+      font-family: Poppins;
+      grid-template-columns: 72px 30% auto 72px;
+      grid-template-rows: auto auto auto;
+      grid-template-areas:
+        "prev title title next"
+        "video video video video"
+        "info info info info";
+      overflow: hidden;
+      width: 100%;
+    }
 
-  #coverflow #modal .nav {
-    cursor: pointer;
-    margin: 0 28px;
-  }
+    #coverflow #modal .nav {
+      align-self: center;
+      cursor: pointer;
+      margin: 0 28px;
+    }
 
-  #coverflow #modal .nav.left {
-    transform: rotate(180deg);
-  }
+    #coverflow #modal .nav.right {
+      grid-area: next;
+    }
+    #coverflow #modal .nav.left {
+      grid-area: prev;
+      transform: rotate(180deg);
+    }
 
-  #coverflow #modal .info {
-    color: #4d4d4d;
-    flex-shrink: 0;
-    font-family: Poppins;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: normal;
-    height: 100%;
-    line-height: 26px;
-    overflow: auto;
-    text-align: left;
-    width: 30%;
-  }
+    #coverflow #modal .title {
+      grid-area: title;
+      padding: 16px 0;
+      font-style: normal;
+      font-weight: normal;
+    }
+    #coverflow #modal .title .project-type {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 36px;
+    }
 
-  #coverflow #modal .info .project-type {
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 36px;
-  }
+    #coverflow #modal .title .project-name {
+      font-size: 14px;
+    }
 
-  #coverflow #modal .info .project-name {
-    font-size: 18px;
-  }
+    #coverflow #modal .info {
+      color: #4d4d4d;
+      flex-shrink: 0;
+      font-size: 13px;
+      grid-area: info;
+      padding: 16px;
+      text-align: left;
+    }
 
-  #coverflow #modal .info .description {
-    margin-top: 16px;
-  }
+    #coverflow #modal .info .description {
+      margin-top: 16px;
+    }
 
-  #coverflow #modal .info .standards {
-    margin-top: 16px;
-    padding-inline-start: 16px;
-  }
+    #coverflow #modal .info .standards {
+      margin-top: 16px;
+      padding-inline-start: 16px;
+    }
 
-  #coverflow #modal .media {
-    flex-grow: 1;
-    height: 100%;
-    padding-left: 16px;
-    width: auto;
-  }
+    #coverflow #modal .media {
+      align-self: center;
+      grid-area: video;
+      padding: 0 16px;
+      width: auto;
+    }
 
-  #coverflow #modal .media video {
-    border-radius: 8px;
-    border: 3px solid #f2f2f2;
-    height: 100%;
-    width: 100%;
-  }
+    #coverflow #modal .media video {
+      border-radius: 8px;
+      border: 3px solid #f2f2f2;
+      width: 100%;
+    }
 
-  #coverflow div.card {
-    background-color: #242424;
-    background-position: center -1px;
-    background-repeat: no-repeat;
-    border-radius: 6px;
-    box-shadow: 0px 0px 36px rgba(0, 0, 0, 0.302);
-    color: #f6f6f6;
-    cursor: pointer;
-    height: 340px;
-    left: 50%;
-    margin-left: -132px;
-    margin-top: -90px;
-    padding: 208px 16px 16px 16px;
-    position: absolute;
-    text-align: left;
-    top: 36%;
-    transform-style: preserve-3d;
-    transition: all 300ms ease-out;
-    user-select: none;
-    width: 264px;
-  }
+    #coverflow div.card {
+      background-color: #242424;
+      background-position: center -1px;
+      background-repeat: no-repeat;
+      border-radius: 6px;
+      box-shadow: 0px 0px 36px rgba(0, 0, 0, 0.302);
+      color: #f6f6f6;
+      cursor: pointer;
+      height: 340px;
+      left: 50%;
+      margin-left: -132px;
+      margin-top: -90px;
+      padding: 208px 16px 16px 16px;
+      position: absolute;
+      text-align: left;
+      top: 36%;
+      transform-style: preserve-3d;
+      transition: all 300ms ease-out;
+      user-select: none;
+      width: 264px;
+    }
 
-  #coverflow div.card .title {
-    font-family: Poppins;
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 500;
-    height: 72px;
-    margin-bottom: 16px;
-  }
+    #coverflow div.card .title {
+      font-family: Poppins;
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 500;
+      height: 72px;
+      margin-bottom: 16px;
+    }
 
-  #coverflow div.card .tags {
-    display: flex;
-    justify-content: space-between;
-  }
+    #coverflow div.card .tags {
+      display: flex;
+      justify-content: space-between;
+    }
 
-  #coverflow div.card .tag {
-    align-items: center;
-    background: rgba(246, 246, 246, 0.12);
-    border-radius: 4px;
-    color: rgba(246, 246, 246, 0.87);
-    display: flex;
-    font-family: IBM Plex Mono;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: normal;
-    height: 32px;
-    justify-content: center;
-    width: 112px;
-  }
-</style>
+    #coverflow div.card .tag {
+      align-items: center;
+      background: rgba(246, 246, 246, 0.12);
+      border-radius: 4px;
+      color: rgba(246, 246, 246, 0.87);
+      display: flex;
+      font-family: IBM Plex Mono;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: normal;
+      height: 32px;
+      justify-content: center;
+      width: 112px;
+    }
+
+    @media only screen and (min-width: 768px) {
+      #coverflow #modal .header {
+        font-size: 14px;
+      }
+      #coverflow #modal .title .project-type {
+        font-size: 20px;
+      }
+      #coverflow #modal .title .project-name {
+        font-size: 16px;
+      }
+    }
+
+    @media only screen and (min-width: 992px) {
+      #coverflow #modal {
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      #coverflow #modal .header {
+        font-size: 16px;
+      }
+      #coverflow #modal .content {
+        grid-template-rows: 60px 1fr;
+        grid-template-areas:
+          "prev title video next"
+          "prev info video next";
+        height: 468px;
+      }
+      #coverflow #modal .title {
+        padding-top: 24px;
+        text-align: left;
+      }
+      #coverflow #modal .title .project-type {
+        font-size: 24px;
+      }
+      #coverflow #modal .title .project-name {
+        font-size: 18px;
+      }
+      #coverflow #modal .info {
+        padding: 16px 16px 16px 0;
+      }
+    }
+  </style>
+</head>
 <div id="cv-container">
   <div id="coverflow">
     <div id="modal">
@@ -198,9 +252,11 @@
           src="https://uploads-ssl.webflow.com/6047d44fad4ed2d97b3a7a18/60873e6ef7867c3c1fc28e76_arrow.png"
           alt="previous"
         />
-        <div class="info">
+        <div class="title">
           <div class="project-type"></div>
           <div class="project-name"></div>
+        </div>
+        <div class="info">
           <div class="description"></div>
           <ul class="standards"></ul>
         </div>
@@ -396,6 +452,7 @@
       featuredTags = null,
       modal = null,
       modalInfo = null,
+      modalHeaderTitle = null,
       modalTitle = null,
       modalProjectName = null,
       modalDescription = null,
@@ -493,6 +550,7 @@
     }
 
     function updateModal(i) {
+      fadeIn(modalTitle);
       fadeIn(modalInfo);
       const {
         title,
@@ -503,7 +561,7 @@
         standards,
         video,
       } = data[i];
-      modalTitle.innerHTML = `${title} - ${gradeBand} Example Project`;
+      modalHeaderTitle.innerHTML = `${title} - ${gradeBand} Example Project`;
       modalProjectType.innerHTML = projectType;
       modalProjectName.innerHTML = projectName;
       modalDescription.innerHTML = description;
@@ -559,7 +617,8 @@
       }
       modal = get("#modal");
       modalInfo = get("#modal .info");
-      modalTitle = get("#modal .header-title");
+      modalHeaderTitle = get("#modal .header-title");
+      modalTitle = get("#modal .title");
       modalProjectType = get("#modal .project-type");
       modalProjectName = get("#modal .project-name");
       modalDescription = get("#modal .description");
