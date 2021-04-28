@@ -27,6 +27,19 @@
       box-sizing: border-box;
     }
 
+    #coverflow .modal-overlay {
+      position: fixed;
+      padding: 0;
+      margin: 0;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+
     #coverflow #modal {
       background: #ffffff;
       border-radius: 10px;
@@ -238,6 +251,7 @@
 </head>
 <div id="cv-container">
   <div id="coverflow">
+    <div class="modal-overlay"></div>
     <div id="modal">
       <div class="header">
         <div class="header-title"></div>
@@ -450,6 +464,7 @@
       coverflow = null,
       featuredTitle = null,
       featuredTags = null,
+      modalOverlay = null,
       modal = null,
       modalInfo = null,
       modalHeaderTitle = null,
@@ -576,6 +591,7 @@
 
     function handleClickCard(i) {
       return function () {
+        hideModal();
         updateModal(i);
         if (i === index) {
           showModal(i);
@@ -584,6 +600,11 @@
         index = i;
         render();
       };
+    }
+
+    function handleModalClick(e) {
+      console.log("fksjd");
+      e.stopPropagation();
     }
 
     function init() {
@@ -616,6 +637,9 @@
         coverflow.appendChild(card);
       }
       modal = get("#modal");
+      modal.onclick = handleModalClick;
+      modalOverlay = get("#coverflow .modal-overlay");
+      modalOverlay.onclick = hideModal;
       modalInfo = get("#modal .info");
       modalHeaderTitle = get("#modal .header-title");
       modalTitle = get("#modal .title");
