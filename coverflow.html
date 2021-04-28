@@ -15,19 +15,7 @@
       width: 100%;
     }
 
-    #coverflow {
-      background-color: transparent;
-      height: auto;
-      min-height: 500px;
-      perspective: 600px;
-      width: 100%;
-    }
-
-    #coverflow * {
-      box-sizing: border-box;
-    }
-
-    #coverflow .modal-overlay {
+    #cv-container .modal-overlay {
       position: fixed;
       padding: 0;
       margin: 0;
@@ -38,6 +26,18 @@
       width: 100%;
       height: 100%;
       background: transparent;
+    }
+
+    #coverflow {
+      background-color: transparent;
+      height: auto;
+      min-height: 500px;
+      perspective: 600px;
+      width: 100%;
+    }
+
+    #coverflow * {
+      box-sizing: border-box;
     }
 
     #coverflow #modal {
@@ -251,8 +251,8 @@
   </style>
 </head>
 <div id="cv-container">
+  <div class="modal-overlay"></div>
   <div id="coverflow">
-    <div class="modal-overlay"></div>
     <div id="modal">
       <div class="header">
         <div class="header-title"></div>
@@ -639,7 +639,7 @@
       }
       modal = get("#modal");
       modal.onclick = handleModalClick;
-      modalOverlay = get("#coverflow .modal-overlay");
+      modalOverlay = get("#cv-container .modal-overlay");
       modalOverlay.onclick = hideModal;
       modalInfo = get("#modal .info");
       modalHeaderTitle = get("#modal .header-title");
