@@ -161,6 +161,7 @@
       top: 36%;
       transform-style: preserve-3d;
       transition: all 300ms ease-out;
+      -webkit-user-select: none;
       user-select: none;
       width: 264px;
     }
@@ -464,7 +465,7 @@
       modalNext = null,
       cards = [],
       swipeStartX = null;
-    const OFFSET = 106;
+    const OFFSET = 136;
     const SPACE = 120;
     const ROTATION = 70;
     const BASE_ZINDEX = 10;
@@ -480,9 +481,9 @@
           cards[i].style.transform =
             "translateX( -" +
             (OFFSET + SPACE * (index - i)) +
-            "px ) translateZ(-100px) rotateY( " +
+            "px ) translateZ(-200px) rotateY( " +
             ROTATION +
-            "deg )";
+            "deg ) scale(1.1)";
           cards[i].style.zIndex = BASE_ZINDEX + i;
         }
 
@@ -495,9 +496,9 @@
           cards[i].style.transform =
             "translateX( " +
             (OFFSET + SPACE * (i - index)) +
-            "px ) translateZ(-100px) rotateY( -" +
+            "px ) translateZ(-200px) rotateY( -" +
             ROTATION +
-            "deg )";
+            "deg ) scale(1.1)";
           cards[i].style.zIndex = BASE_ZINDEX + (cards.length - i);
         }
       }
