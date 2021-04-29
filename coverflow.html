@@ -625,7 +625,9 @@
       modal = get("#modal");
       modal.onclick = handleModalClick;
       pageWrapper = get(".page-wrapper");
-      pageWrapper.onclick = hideModal;
+      if (pageWrapper) {
+        pageWrapper.onclick = hideModal;
+      }
       modalInfo = get("#modal .info");
       modalHeaderTitle = get("#modal .header-title");
       modalTitle = get("#modal .title");
