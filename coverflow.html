@@ -207,10 +207,6 @@
     }
 
     @media only screen and (min-width: 992px) {
-      #coverflow #modal {
-        top: 50%;
-        transform: translate(-50%, -50%);
-      }
       #coverflow #modal .header {
         font-size: 16px;
       }
@@ -529,6 +525,10 @@
       }
     }
 
+    function setContainerHeight(){
+      cvContainer.style.height = modal.offsetHeight + 50 + 'px';
+    }
+
     function resetContainerHeight(){
       cvContainer.style.height = "auto";
     }
@@ -536,6 +536,7 @@
     function showModal(i) {
       modal.style.visibility = "visible";
       modal.style.opacity = 1;
+      setContainerHeight();
     }
 
     function hideModal() {
