@@ -6,7 +6,7 @@
   />
   <style>
     #cv-container {
-      background: transparent;
+      background: blue;
       height: auto;
       margin: 0 auto;
       padding: 0;
@@ -448,6 +448,7 @@
       },
     ];
     let index = 0,
+      cvContainer = null;
       coverflow = null,
       featuredTitle = null,
       featuredTags = null,
@@ -463,7 +464,6 @@
       modalPrev = null,
       modalNext = null,
       cards = [],
-      isModalShown = false,
       swipeStartX = null;
     const OFFSET = 106;
     const SPACE = 120;
@@ -529,6 +529,10 @@
       }
     }
 
+    function resetContainerHeight(){
+      cvContainer.style.height = "auto";
+    }
+
     function showModal(i) {
       modal.style.visibility = "visible";
       modal.style.opacity = 1;
@@ -537,6 +541,7 @@
     function hideModal() {
       modal.style.visibility = "hidden";
       modal.style.opacity = 0;
+      resetContainerHeight();
     }
 
     function fadeIn(element) {
@@ -642,6 +647,7 @@
       }
       coverflow.addEventListener("touchstart", handleTouchStart);
       coverflow.addEventListener("touchend", handleTouchEnd);
+      cvContainer = get("#cv-container");
       modal = get("#modal");
       modal.onclick = handleModalClick;
       pageWrapper = get(".page-wrapper");
@@ -666,6 +672,19 @@
       modalClose.onclick = hideModal;
       cards = Array.prototype.slice.call(document.querySelectorAll("div.card"));
       index = Math.floor(cards.length / 2);
+
+      // Resize container when modal height changes to push down the text below
+      if(window.ResizeObserver){
+        let ro = new ResizeObserver(entries => {
+          for (let entry of entries) {
+            if(modal.style.visibility === "visible"){
+              cvContainer.style.height = entry.contentRect.height + 50 + 'px';
+            }
+          }
+        });
+        ro.observe(modal);
+      }
+
       render();
     }
 
