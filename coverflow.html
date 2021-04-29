@@ -578,7 +578,8 @@
     }
 
     function handleClickCard(i) {
-      return function () {
+      return function (e) {
+        e.stopPropagation();
         hideModal();
         updateModal(i);
         if (i === index) {
