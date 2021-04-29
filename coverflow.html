@@ -463,7 +463,8 @@
       modalPrev = null,
       modalNext = null,
       cards = [],
-      isModalShown = false;
+      isModalShown = false,
+      swipeStartX = null;
     const OFFSET = 106;
     const SPACE = 120;
     const ROTATION = 70;
@@ -593,6 +594,22 @@
       e.stopPropagation();
     }
 
+    function handleTouchStart(e) {
+      swipeStartX = e.changedTouches[0].pageX;
+    }
+
+    function handleTouchEnd(e) {
+      const swipeEndX = e.changedTouches[0].pageX;
+      if (Math.abs(swipeEndX - swipeStartX) < 150) {
+        return;
+      }
+      if (swipeStartX < swipeEndX) {
+        prevClick();
+      } else {
+        nextClick();
+      }
+    }
+
     function init() {
       coverflow = get("#coverflow");
       for (var i = 0; i < data.length; i++) {
@@ -622,6 +639,8 @@
         card.onclick = handleClickCard(i);
         coverflow.appendChild(card);
       }
+      coverflow.addEventListener("touchstart", handleTouchStart);
+      coverflow.addEventListener("touchend", handleTouchEnd);
       modal = get("#modal");
       modal.onclick = handleModalClick;
       pageWrapper = get(".page-wrapper");
