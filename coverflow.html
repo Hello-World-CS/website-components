@@ -212,14 +212,14 @@
         font-size: 16px;
       }
       #coverflow #modal .content {
-        grid-template-rows: 60px 1fr;
+        grid-template-rows: auto 1fr;
         grid-template-areas:
           "prev title video next"
           "prev info video next";
-        height: 420px;
+        min-height: 420px;
       }
       #coverflow #modal .title {
-        padding-top: 24px;
+        padding: 24px 0 0 0;
         text-align: left;
       }
       #coverflow #modal .title .project-type {
@@ -231,8 +231,11 @@
       #coverflow #modal .info {
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
-        padding: 16px 16px 16px 0;
+        justify-content: flex-start;
+        padding: 0 16px 0 0;
+      }
+      #coverflow #modal .media video {
+        margin: 16px 0;
       }
     }
   </style>
@@ -448,7 +451,7 @@
       },
     ];
     let index = 0,
-      cvContainer = null;
+      cvContainer = null,
       coverflow = null,
       featuredTitle = null,
       featuredTags = null,
@@ -529,11 +532,11 @@
       }
     }
 
-    function setContainerHeight(){
-      cvContainer.style.height = modal.offsetHeight + 50 + 'px';
+    function setContainerHeight() {
+      cvContainer.style.height = modal.offsetHeight + 50 + "px";
     }
 
-    function resetContainerHeight(){
+    function resetContainerHeight() {
       cvContainer.style.height = "auto";
     }
 
@@ -680,11 +683,11 @@
       index = Math.floor(cards.length / 2);
 
       // Resize container when modal height changes to push down the text below
-      if(window.ResizeObserver){
-        let ro = new ResizeObserver(entries => {
+      if (window.ResizeObserver) {
+        let ro = new ResizeObserver((entries) => {
           for (let entry of entries) {
-            if(modal.style.visibility === "visible"){
-              cvContainer.style.height = entry.contentRect.height + 50 + 'px';
+            if (modal.style.visibility === "visible") {
+              cvContainer.style.height = entry.contentRect.height + 50 + "px";
             }
           }
         });
